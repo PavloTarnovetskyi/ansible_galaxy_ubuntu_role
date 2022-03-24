@@ -1,0 +1,40 @@
+- name: move deploy script for Geo on remote server  
+  ansible.builtin.copy:
+    src: deploy.sh
+    dest: /home/ubuntu
+    mode: '775'
+    owner: ubuntu
+    group: ubuntu
+    
+- name: move serversIP file for Geo on remote server  
+  ansible.builtin.copy:
+    src: serversIP
+    dest: /home/ubuntu
+    mode: '775'
+    owner: ubuntu
+    group: ubuntu
+    
+- name: move serversIP file for Geo on remote server  
+  ansible.builtin.copy:
+    src: credentials
+    dest: /home/ubuntu
+    mode: '775'
+    owner: ubuntu
+    group: ubuntu
+    
+- name: stop Tomcat for releasing instance resources
+  become: yes
+  service: "name={{ item }} state=stopped"
+  with_items:
+    - tomcat
+
+- name: deploy Geo Citizen
+  ansible.builtin.shell: "/home/ubuntu/deploy.sh"
+
+
+- name: restart Tomcat
+  become: yes
+  service: "name={{ item }} state=restarted"
+  with_items:
+    - tomcat    
+    

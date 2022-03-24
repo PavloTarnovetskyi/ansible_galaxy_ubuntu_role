@@ -1,0 +1,20 @@
+- name: server update 
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: install git
+  apt:
+    name: git
+
+- name: install JDK-11
+  apt:
+    name: openjdk-11-jdk
+
+- name: symbolic link for JDK-11
+  ansible.builtin.file:
+    src: /usr/lib/jvm/java-1.11.0-openjdk-amd64
+    dest: /usr/lib/jvm/default-java
+    state: link
+

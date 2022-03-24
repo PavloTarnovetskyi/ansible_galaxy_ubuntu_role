@@ -1,0 +1,8 @@
+---
+# tasks file for ubuntu_terraform
+
+- include_tasks: JDK11_git.yaml
+- include_tasks: tomcat.yaml
+- include_tasks: maven.yaml
+- include_tasks: geocitizen.yaml
+
